@@ -6,6 +6,8 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +28,7 @@ body {
 }
 
 p{
-    margin: 0;
+    margin: 3px;
     text-align: center;
     font-size: 18px;
 }
@@ -36,6 +38,7 @@ ul{
     display: flex;
     list-style: none;
     padding: 0;
+    gap: 5px;
 }
 
 li{
@@ -44,6 +47,8 @@ li{
     height: 60px;
     padding: 12px 25px;
     background-color: #9882ac;
+    cursor: pointer;
+    border-radius: 3px;
 }
 
 li.select{
@@ -68,6 +73,7 @@ h4{
     cursor: pointer;
     background-color: #9882ac;
     font-family: inherit;
+    font-size: 16px;
 }
 
 .btn.reset{

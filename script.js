@@ -65,6 +65,7 @@ const newGame = () => {
         playTwo.addItemListeners();
 
         startBtn.addEventListener('click', () => {
+            if (winner !== null) return;
             playOne.setName();
             
             playTwo.setName();
