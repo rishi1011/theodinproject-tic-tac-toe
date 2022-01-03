@@ -8,12 +8,45 @@
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" /> -->
     <link rel="stylesheet" href="style.css">
-    <title>My Project</title>
+    <title>Tic Tac Toe</title>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <h1>Project Starter</h1>
-    <script src="script.js"></script>
+    <h1>Tic Tac Toe</h1>
+    <div class="players">
+        <div class="player">
+            <p>Player One</p>
+            <ul class="one">
+                <li>O</li>
+                <li>P</li>
+                <li>Q</li>
+            </ul>
+        </div>
+        <button id="start" class="btn">Start</button>
+        <div class="player">
+            <p>Player Two</p>
+            <ul class="two">
+                <li>X</li>
+                <li>Y</li>
+                <li>Z</li>
+            </ul>
+        </div>
+    </div>
+    <h4 id="winner"></h4>
+    <div class="grid" id="grid">
+        <div class="grid-item 0"></div>
+        <div class="grid-item 1"></div>
+        <div class="grid-item 2"></div>
+        <div class="grid-item 3"></div>
+        <div class="grid-item 4"></div>
+        <div class="grid-item 5"></div>
+        <div class="grid-item 6"></div>
+        <div class="grid-item 7"></div>
+        <div class="grid-item 8"></div>
+    </div>
+
+    <button id="reset" class="reset btn">Reset</button>
 </body>
 
 </html>
