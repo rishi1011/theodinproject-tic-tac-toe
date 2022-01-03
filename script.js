@@ -73,6 +73,9 @@ const newGame = () => {
             if (playOne.playerName === null || playTwo.playerName === null) {
                 alert('Choose player name');
             } else {
+                makeListItemUnclickable(playerOneSelects);
+                makeListItemUnclickable(playerTwoSelects);
+
                 playOne.removeItemListeners();
                 playTwo.removeItemListeners();
                 playerOne = playOne;
@@ -188,6 +191,15 @@ game.setPlayerAndStart();
 reset.addEventListener('click', () => {
     window.location.reload();
 });
+
+
+// UI
+
+function makeListItemUnclickable(playerSelects) {
+    playerSelects.forEach(item => {
+        item.style.cursor = 'not-allowed';
+    })
+}
 
 
 
