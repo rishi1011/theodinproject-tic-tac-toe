@@ -13,7 +13,16 @@
 </head>
 
 <body>
-    <h1>Tic Tac Toe</h1>
+    <div class="header">
+        <h1>Tic Tac Toe</h1>
+        <div class="toggle">
+            <p class="comp">Play with Computer</p>
+            <label id="switch" class="switch">
+                <input id="comp-input" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
     <div class="players">
         <div class="player">
             <p>Player One</p>
@@ -23,9 +32,11 @@
                 <li>Q</li>
             </ul>
         </div>
-        <button id="start" class="btn">Start</button>
+        <div class="button-container">
+            <button id="start" class="btn">Start</button>
+        </div>
         <div class="player">
-            <p>Player Two</p>
+            <p>Player Two/Computer</p>
             <ul class="two">
                 <li>X</li>
                 <li>Y</li>

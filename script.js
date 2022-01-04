@@ -5,6 +5,9 @@ const winnerText = document.getElementById('winner');
 const reset = document.getElementById('reset');
 const startBtn = document.getElementById('start');
 
+const comp = document.getElementById('comp-input');
+const switchBtn = document.getElementById('switch');
+
 const playerOneSelects = document.querySelectorAll('.player > .one > li');
 const playerTwoSelects = document.querySelectorAll('.player > .two > li');
 
@@ -18,6 +21,7 @@ const newGame = () => {
     let isTie = false;
     let currentPlayer = null;
     let eventListen = true;
+    let computerPlay = false;
 
     const player = (playerSelects) => {
         let playerName = null;
@@ -67,11 +71,11 @@ const newGame = () => {
         startBtn.addEventListener('click', () => {
             if (winner !== null) return;
             playOne.setName();
-            
+
             playTwo.setName();
-            
+
             if (playOne.playerName === null || playTwo.playerName === null) {
-                alert('Choose player name');
+                alert('Choose player or computer name');
             } else {
                 makeListItemUnclickable(playerOneSelects);
                 makeListItemUnclickable(playerTwoSelects);
@@ -81,7 +85,10 @@ const newGame = () => {
                 playerOne = playOne;
                 playerTwo = playTwo;
                 currentPlayer = playerOne;
-    
+                computerPlay = comp.checked;
+                comp.disabled = true;
+                switchBtn.style.cursor = 'not-allowed';
+
                 addGridItemListeners();
             }
         });
@@ -99,13 +106,40 @@ const newGame = () => {
         }
     }
 
-    function markSpotOnBoard(event, index) {
-        console.log(playerOne.playerName);
+    function hasNumberIndex() {
+        for (let i = 0; i < gameBoard.length; i++){
+            if (typeof gameBoard[i] === 'number') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function makeComputerMove() {
+        let min = 0;
+        let max = gameBoard.length - 1;
+        let index = null;
+        while (hasNumberIndex() && typeof gameBoard[index] != 'number') {
+            index = Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        if (index === null) declareTie();
+        gridItems[index].textContent = playerTwo.playerName;
+        gameBoard[index] = playerTwo.playerName;
+        checkWinnerOrTie();
+    }
+
+    function markSpotOnBoard(gridItem, index) {
         if (gameBoard[index] !== playerOne.playerName && gameBoard[index] !== playerTwo.playerName) {
-            event.target.textContent = currentPlayer.playerName;
+            gridItem.textContent = currentPlayer.playerName;
             gameBoard[index] = currentPlayer.playerName;
             checkWinnerOrTie();
-            changePlayer();
+            if (eventListen) {
+                if (computerPlay) {
+                    makeComputerMove();
+                } else {
+                    changePlayer();
+                }
+            }
         }
     }
 
@@ -165,7 +199,7 @@ const newGame = () => {
         let gridItem = event.target;
         let index = childNodes.indexOf(gridItem);
         index = Math.floor(index / 2);
-        markSpotOnBoard(event, index);
+        markSpotOnBoard(event.target, index);
     }
 
     function addGridItemListeners() {
@@ -182,6 +216,7 @@ const newGame = () => {
 
     return {
         setPlayerAndStart,
+        computerPlay,
     };
 };
 
@@ -198,8 +233,9 @@ reset.addEventListener('click', () => {
 function makeListItemUnclickable(playerSelects) {
     playerSelects.forEach(item => {
         item.style.cursor = 'not-allowed';
-    })
+    });
 }
+
 
 
 
