@@ -74,8 +74,12 @@ const newGame = () => {
 
             playTwo.setName();
 
-            if (playOne.playerName === null || playTwo.playerName === null) {
-                alert('Choose player or computer name');
+            if (playOne.playerName === null) {
+                alert('Choose player one name');
+            } else if (playTwo.playerName === null && comp.checked) {
+                alert('Choose bot name');
+            } else if (playTwo.playerName === null) {
+                alert('Choose player two name');
             } else {
                 makeListItemUnclickable(playerOneSelects);
                 makeListItemUnclickable(playerTwoSelects);
@@ -107,7 +111,7 @@ const newGame = () => {
     }
 
     function hasNumberIndex() {
-        for (let i = 0; i < gameBoard.length; i++){
+        for (let i = 0; i < gameBoard.length; i++) {
             if (typeof gameBoard[i] === 'number') {
                 return true;
             }
