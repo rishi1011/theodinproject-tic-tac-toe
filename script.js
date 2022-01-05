@@ -12,8 +12,6 @@ const dropList = document.getElementById('drop-list');
 const playerOneSelects = document.querySelectorAll('.player > .one > li');
 const playerTwoSelects = document.querySelectorAll('.player > .two > li');
 
-// console.log(dropList.options.selectedIndex);
-
 //functionality
 //game
 const newGame = () => {
@@ -94,8 +92,9 @@ const newGame = () => {
                 playerTwo = playTwo;
                 currentPlayer = playerOne;
                 computerPlay = comp.checked;
-                comp.disabled = true;
-                switchBtn.style.cursor = 'not-allowed';
+                
+                makeToggleBtnUnclickable();
+                makeDropListUnclickable();
 
                 addGridItemListeners();
 
@@ -211,7 +210,6 @@ const newGame = () => {
     function makeComputerMove() {
         if (unbeatable) {
             let index = minimax(gameBoard, playerTwo).index;
-            console.log(index);
             gridItems[index].textContent = playerTwo.playerName;
             gameBoard[index] = playerTwo.playerName;
         } else {
@@ -334,6 +332,16 @@ function makeListItemUnclickable(playerSelects) {
     playerSelects.forEach(item => {
         item.style.cursor = 'not-allowed';
     });
+}
+
+function makeToggleBtnUnclickable() {
+    comp.disabled = true;
+    switchBtn.style.cursor = 'not-allowed';
+}
+
+function makeDropListUnclickable() {
+    dropList.disabled = true;
+    dropList.style.cursor = 'not-allowed';
 }
 
 
