@@ -76,6 +76,8 @@ const newGame = () => {
 
             playTwo.setName();
 
+            console.log("hi",playOne.playerName, playTwo.playerName);
+
             if (playOne.playerName === null) {
                 alert('Choose player one name');
             } else if (playTwo.playerName === null && comp.checked) {
@@ -88,6 +90,7 @@ const newGame = () => {
 
                 playOne.removeItemListeners();
                 playTwo.removeItemListeners();
+
                 playerOne = playOne;
                 playerTwo = playTwo;
                 currentPlayer = playerOne;
