@@ -22,7 +22,6 @@ body {
 .header{
     display: flex;
     width: 60vw;
-    /* height: 10vh; */
     justify-content: center;
     position: relative;
 }
@@ -33,7 +32,7 @@ body {
     right: 5px;
     top: 5px;
     height: 25px;
-    width: 220px;
+    width: 275px;
 }
 
 .switch{
@@ -96,6 +95,20 @@ input:checked + .slider:before {
 
 .slider.round::before{
     border-radius: 50%;
+}
+
+.drop-list{
+    font-family: inherit;
+    width: 100px;
+    border-radius: 34px;
+    background-color: #a393bf;
+    margin-left: 10px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    padding: 3px;
+}   
+
+.drop-list:focus{
+    outline: 0;
 }
 
 .players{
@@ -204,9 +217,23 @@ h4{
     transform: scale(0.9);
 }
 
-@media only screen and (max-width: 880px){
+@media only screen and (max-width: 950px){
     .players{
         flex-direction: column;
         height: 30vh;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .header{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .toggle{
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 8px auto 0;
     }
 }

@@ -7,14 +7,17 @@ const startBtn = document.getElementById('start');
 
 const comp = document.getElementById('comp-input');
 const switchBtn = document.getElementById('switch');
+const dropList = document.getElementById('drop-list');
 
 const playerOneSelects = document.querySelectorAll('.player > .one > li');
 const playerTwoSelects = document.querySelectorAll('.player > .two > li');
 
+// console.log(dropList.options.selectedIndex);
+
 //functionality
 //game
 const newGame = () => {
-    let gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let gameBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let playerOne = null;
     let playerTwo = null;
     let winner = null;
@@ -22,6 +25,7 @@ const newGame = () => {
     let currentPlayer = null;
     let eventListen = true;
     let computerPlay = false;
+    let unbeatable = false;
 
     const player = (playerSelects) => {
         let playerName = null;
@@ -94,6 +98,8 @@ const newGame = () => {
                 switchBtn.style.cursor = 'not-allowed';
 
                 addGridItemListeners();
+
+                unbeatable = dropList.options.selectedIndex;
             }
         });
     }
@@ -119,16 +125,106 @@ const newGame = () => {
         return false;
     }
 
-    function makeComputerMove() {
-        let min = 0;
-        let max = gameBoard.length - 1;
-        let index = null;
-        while (hasNumberIndex() && typeof gameBoard[index] != 'number') {
-            index = Math.floor(Math.random() * (max - min + 1) + min);
+    function checkWin(gameBoard, player) {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (gameBoard[a] === player.playerName && gameBoard[b] === player.playerName && gameBoard[c] === player.playerName) {
+                return true;
+            }
         }
-        if (index === null) declareTie();
-        gridItems[index].textContent = playerTwo.playerName;
-        gameBoard[index] = playerTwo.playerName;
+        return false;
+    }
+
+    function getAvailSpots(gameBoard) {
+        let spots = gameBoard.filter(item => typeof item === 'number');
+        return spots;
+    }
+
+    function minimax(newBoard, player) {
+        const availSpots = getAvailSpots(newBoard);
+
+        if (checkWin(newBoard, playerOne)) {
+            return { score: -10 };
+        } else if (checkWin(newBoard, playerTwo)) {
+            return { score: 10 };
+        } else if(availSpots.length === 0) {
+            return { score: 0 };
+        }
+
+        let moves = [];
+
+        for (let i = 0; i < availSpots.length; i++){
+            let move = {};
+
+            move.index = newBoard[availSpots[i]];
+
+            newBoard[availSpots[i]] = player.playerName;
+
+            if (player === playerTwo) {
+                let result = minimax(newBoard, playerOne);
+                move.score = result.score;
+            } else {
+                let result = minimax(newBoard, playerTwo);
+                move.score = result.score;
+            }
+
+            newBoard[availSpots[i]] = move.index;
+
+            moves.push(move);
+        }
+
+        let bestMove = null;
+
+        if (player === playerTwo) {
+            let score = -10000;
+            for (let i = 0; i < moves.length; i++){
+                if (moves[i].score > score) {
+                    score = moves[i].score;
+                    bestMove = moves[i];
+                }
+            }
+        } else {
+            //human player
+            let score = 10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < score) {
+                    score = moves[i].score;
+                    bestMove = moves[i];
+                }
+            }
+        }
+
+        return bestMove;
+    }
+
+    function makeComputerMove() {
+        if (unbeatable) {
+            let index = minimax(gameBoard, playerTwo).index;
+            console.log(index);
+            gridItems[index].textContent = playerTwo.playerName;
+            gameBoard[index] = playerTwo.playerName;
+        } else {
+            let min = 0;
+            let max = gameBoard.length - 1;
+            let index = null;
+            while (hasNumberIndex() && typeof gameBoard[index] != 'number') {
+                index = Math.floor(Math.random() * (max - min + 1) + min);
+            }
+            if (index === null) declareTie();
+            gridItems[index].textContent = playerTwo.playerName;
+            gameBoard[index] = playerTwo.playerName;
+        }
         checkWinnerOrTie();
     }
 
