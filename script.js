@@ -4,6 +4,7 @@ const gridItems = document.querySelectorAll('.grid-item');
 const winnerText = document.getElementById('winner');
 const reset = document.getElementById('reset');
 const startBtn = document.getElementById('start');
+const playerTwoText = document.getElementById('player-two');
 
 const comp = document.getElementById('comp-input');
 const switchBtn = document.getElementById('switch');
@@ -73,10 +74,7 @@ const newGame = () => {
         startBtn.addEventListener('click', () => {
             if (winner !== null) return;
             playOne.setName();
-
             playTwo.setName();
-
-            console.log("hi",playOne.playerName, playTwo.playerName);
 
             if (playOne.playerName === null) {
                 alert('Choose player one name');
@@ -350,8 +348,11 @@ function makeDropListUnclickable() {
 comp.addEventListener('click', () => {
     if (comp.checked) {
         dropList.style.display = 'block';
+        playerTwoText.textContent = 'Computer';
+        
     } else {
         dropList.style.display = 'none';
+        playerTwoText.textContent = 'Player Two';
     }
 });
 

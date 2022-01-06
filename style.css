@@ -14,7 +14,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     margin: 0;
     background-color: #73648a;
 }
@@ -32,7 +32,7 @@ body {
     right: 5px;
     top: 5px;
     height: 25px;
-    width: 275px;
+    max-width: 275px;
     display: flex;
     justify-content: end;
 }
