@@ -347,6 +347,14 @@ function makeDropListUnclickable() {
     dropList.style.cursor = 'not-allowed';
 }
 
+comp.addEventListener('click', () => {
+    if (comp.checked) {
+        dropList.style.display = 'block';
+    } else {
+        dropList.style.display = 'none';
+    }
+});
+
 
 
 
