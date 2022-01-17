@@ -1,0 +1,1 @@
+A Simple tic tac toe game created with Html, CSS & vanilla js. One can play with another player or with the bot. The bot has two Easy and Unbeatable. The unbeatable level is incorporated using the minimax algorithm.
